@@ -17,7 +17,7 @@ except ImportError:  # Python2
     from urllib import pathname2url
     from urlparse import urljoin
 
-from subprocess import CalledProcessError, TimeoutExpired, CompletedProcess, Popen
+from subprocess import CalledProcessError, TimeoutExpired, CompletedProcess, PIPE, Popen
 
 import django
 from django.conf import settings
@@ -148,6 +148,7 @@ def wkhtmltopdf(pages, output=None, **kwargs):
     try:
         return check_output(ck_args, **ck_kwargs)
     except CalledProcessError as e:
+        ck_kwargs['stdout'] = PIPE
         with Popen(*(ck_args,), **ck_kwargs) as process:
             try:
                 stdout, stderr = process.communicate(None, timeout=None)
