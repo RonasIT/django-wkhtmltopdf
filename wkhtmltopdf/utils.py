@@ -150,7 +150,7 @@ def wkhtmltopdf(pages, output=None, **kwargs):
     except CalledProcessError as e:
         with Popen(*(ck_args,), **ck_kwargs) as process:
             try:
-                stdout, stderr = process.communicate(input, timeout=timeout)
+                stdout, stderr = process.communicate(None, timeout=None)
             except TimeoutExpired as exc:
                 process.kill()
                 # POSIX _communicate already populated the output so
