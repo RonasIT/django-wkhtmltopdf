@@ -148,7 +148,7 @@ def wkhtmltopdf(pages, output=None, **kwargs):
     try:
         return check_output(ck_args, **ck_kwargs)
     except CalledProcessError as e:
-        with Popen(*ck_args, **ck_kwargs) as process:
+        with Popen((ck_args,), **ck_kwargs) as process:
             try:
                 stdout, stderr = process.communicate(input, timeout=timeout)
             except TimeoutExpired as exc:
